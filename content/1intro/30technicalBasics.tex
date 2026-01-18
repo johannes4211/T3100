@@ -29,83 +29,108 @@ Unterkapitel\ldots
 
 \section{Wirkungsgrad elektrischer Antriebe}
 \begin{equation}
-  \eta = \dfrac{P_{ein}}{P_{aus}} = \dfrac{P_{ein}-P_{aus}}{P_{ein}} = \dfrac{P_{aus}}{P_{aus}+P_{Verlust}}
+    \eta = \dfrac{P_{ein}}{P_{aus}} = \dfrac{P_{ein}-P_{aus}}{P_{ein}} = \dfrac{P_{aus}}{P_{aus}+P_{Verlust}}
 \end{equation}
 
 
 
 
+\section{Grundlagen der Leistungsmessung}
 
+\begin{equation}
+    P = \dfrac{t_0}{t_0+T} \int_0^T u(t) \cdot i(t) dt
+\end{equation}
+(Yokogawa Motor Seminar)
+
+
+\begin{equation}
+    P_{m} = \dfrac{2 \cdot \pi \cdot n}{60} \cdot M
+\end{equation}
+
+
+
+\textbf{Leistungsmessung in 3-Phasigen Systemen}
+
+2- und 3-Wattmeter-Methoden
+(Aronschaltung)
+--> Was wird bei CSM Modulen genutzt? Anscheinend umstelltbar?!
+
+
+
+
+
+\section{Messfehler}
+ (ZES Zimmer)
 
 % In die Präambel:
 % \usepackage{array}  % für >{\raggedright\arraybackslash}
 % \usepackage{caption} % optional für bessere Beschriftungen
 
 \begin{table}[htbp]
-  \centering
-  \caption{Häufig verwendete Methoden zur Bestimmung von Verlusten und Wirkungsgraden nach \cite{GUNDABATTINI2021497}}
-  \label{tab:methoden}
-  \small
-  \begin{tabular}{|>{\raggedright\arraybackslash}p{0.22\textwidth}%
-    |>{\raggedright\arraybackslash}p{0.28\textwidth}%
-    |>{\raggedright\arraybackslash}p{0.17\textwidth}%
-    |>{\centering\arraybackslash}p{0.12\textwidth}%
-    |>{\raggedright\arraybackslash}p{0.18\textwidth}|}
-    \hline
-    \textbf{Methode}                                                  &
-    \textbf{Anwendbar für}                                            &
-    \textbf{Bedienfreundlichkeit/Komplexität}                         &
-    \textbf{Unsicherheit\textsuperscript{3}}                          &
-    \textbf{Standardmethode für}                                                                             \\
-    \hline
-    Input–Output                                                                                             \\‑Methode                                              &
-    Alle Geräte (wenn Eingangs‑ und Ausgangsleistung messbar sind)    &
-    Einfach und leicht                                                &
-    Hoch                                                              &
-    DOL‑Motoren\textsuperscript{1}, Frequenzumrichter\textsuperscript{2}, Antriebssysteme\textsuperscript{2} \\
-    \hline
-    Verlusttrennung                                                   &
-    DOL‑Asynchronmotoren (möglicherweise auch DOL‑PMSM und DOL‑SynRM) &
-    Komplex                                                           &
-    Gering                                                            &
-    DOL‑Asynchronmotoren\textsuperscript{1}                                                                  \\
-    \hline
-    Kalorimetrische Methode                                           &
-    Alle Geräte                                                       &
-    Äußerst komplex                                                   &
-    Sehr gering                                                       &
-    Frequenzumrichter\textsuperscript{2}                                                                     \\
-    \hline
-    Analytische Berechnung                                            &
-    Motoren und Frequenzumrichter                                     &
-    Komplex                                                           &
-    Hoch                                                              &
-    Motoren\textsuperscript{1}, Frequenzumrichter\textsuperscript{2}                                         \\
-    \hline
-    Finite‑Elemente‑Methode                                           &
-    Motoren                                                           &
-    Komplex                                                           &
-    Sehr hoch                                                         &
-    --                                                                                                       \\
-    \hline
-  \end{tabular}
+    \centering
+    \caption{Häufig verwendete Methoden zur Bestimmung von Verlusten und Wirkungsgraden nach \cite{GUNDABATTINI2021497}}
+    \label{tab:methoden}
+    \small
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{0.22\textwidth}%
+        |>{\raggedright\arraybackslash}p{0.28\textwidth}%
+        |>{\raggedright\arraybackslash}p{0.17\textwidth}%
+        |>{\centering\arraybackslash}p{0.12\textwidth}%
+        |>{\raggedright\arraybackslash}p{0.18\textwidth}|}
+        \hline
+        \textbf{Methode}                                                  &
+        \textbf{Anwendbar für}                                            &
+        \textbf{Bedienfreundlichkeit/Komplexität}                         &
+        \textbf{Unsicherheit\textsuperscript{3}}                          &
+        \textbf{Standardmethode für}                                                                             \\
+        \hline
+        Input–Output                                                                                             \\‑Methode                                              &
+        Alle Geräte (wenn Eingangs‑ und Ausgangsleistung messbar sind)    &
+        Einfach und leicht                                                &
+        Hoch                                                              &
+        DOL‑Motoren\textsuperscript{1}, Frequenzumrichter\textsuperscript{2}, Antriebssysteme\textsuperscript{2} \\
+        \hline
+        Verlusttrennung                                                   &
+        DOL‑Asynchronmotoren (möglicherweise auch DOL‑PMSM und DOL‑SynRM) &
+        Komplex                                                           &
+        Gering                                                            &
+        DOL‑Asynchronmotoren\textsuperscript{1}                                                                  \\
+        \hline
+        Kalorimetrische Methode                                           &
+        Alle Geräte                                                       &
+        Äußerst komplex                                                   &
+        Sehr gering                                                       &
+        Frequenzumrichter\textsuperscript{2}                                                                     \\
+        \hline
+        Analytische Berechnung                                            &
+        Motoren und Frequenzumrichter                                     &
+        Komplex                                                           &
+        Hoch                                                              &
+        Motoren\textsuperscript{1}, Frequenzumrichter\textsuperscript{2}                                         \\
+        \hline
+        Finite‑Elemente‑Methode                                           &
+        Motoren                                                           &
+        Komplex                                                           &
+        Sehr hoch                                                         &
+        --                                                                                                       \\
+        \hline
+    \end{tabular}
 
-  \vspace{1mm}
-  {\footnotesize
-    \textsuperscript{1} IEC 60034-2-1 (IEC, 2014b), IEEE 112 (IEEE, 2017).\\
-    \textsuperscript{2} IEC 61800-9-2 (IEC, 2017).\\
-    \textsuperscript{3} Im Fall hocheffizienter Geräte. Je niedriger die Effizienz des DUT, desto geringer die Unsicherheit der Ein-/Ausgangs‑Methode.
-  }
+    \vspace{1mm}
+    {\footnotesize
+        \textsuperscript{1} IEC 60034-2-1 (IEC, 2014b), IEEE 112 (IEEE, 2017).\\
+        \textsuperscript{2} IEC 61800-9-2 (IEC, 2017).\\
+        \textsuperscript{3} Im Fall hocheffizienter Geräte. Je niedriger die Effizienz des DUT, desto geringer die Unsicherheit der Ein-/Ausgangs‑Methode.
+    }
 \end{table}
 
 
 
 
 \begin{quote}
-  In the frequency converter measurements, the methods used are the input–output method
-  and the calorimetric method. These are the only two practical methods for frequency
-  converter loss and efficiency determination with tests, and they are consequently defined
-  as standard test methods in the standard IEC 61800-9-2
+    In the frequency converter measurements, the methods used are the input–output method
+    and the calorimetric method. These are the only two practical methods for frequency
+    converter loss and efficiency determination with tests, and they are consequently defined
+    as standard test methods in the standard IEC 61800-9-2
 \end{quote} \cite{Karkkainen2021}[p. 53]
 
 
@@ -123,12 +148,12 @@ Maximum
 
 Beispielhafter Import einer Grafik \change{Das hier ändern}
 \begin{figure}[H]
-  \centering
+    \centering
 
-  \includegraphics[width=1\textwidth]{media/RED.jpg}
+    \includegraphics[width=1\textwidth]{media/RED.jpg}
 
-  \captionsetup{width=0.8\textwidth}
-  \caption[Kurze Bildbeschreibung]{Ein Bild mit Quellenangabe \cite[S.~9]{Siemens}}
+    \captionsetup{width=0.8\textwidth}
+    \caption[Kurze Bildbeschreibung]{Ein Bild mit Quellenangabe \cite[S.~9]{Siemens}}
 
-  \label{platzhalterx}
+    \label{platzhalterx}
 \end{figure}

@@ -20,21 +20,35 @@ pq Methode zur Mssung der instantanmem Leistung in 3-Phasigen Systemen
 
 
 \section{Messysteme}
+Die Leistungsmessung zur Bestimmung des Wirkungsgrades für Industrielle Anwendungen mit höchster Genauigkeit erfolgt in der Regel mit sog. Leistungsanalysatoren.
+%https://cdn.tmi.yokogawa.com/11/3823/details/Motor_Seminar_MTG.pdf
+
 
 \cite{Spannungsmessung}
 \cite{Strommessung}
 
 
-\subsection{Antriebsstrang DHBW Engineering}
+\section{Antriebsstrang DHBW Engineering}
 Der Antriebsstrang des eSleek26 besteht aus vier Radnabenmaschinen, die jeweils von einem eigenen Wechselrichter angesteuert werden.
 Die vier Wechselrichter sind zentral im Fahrzeug verbaut und werden durch einen 600 V Hochvolt Akkumulator gespeist.
 
-\subsubsection{Traktionswechselrichter PrePulse}
+\subsection{Traktionswechselrichter PrePulse}
 Seit der Saison 2023 setzt das DHBW Engineering auf einen Eigenentwickelten Traktionswechselrichter.
 Dieser basiert auch auf SiC Halbleitermodulen in B6 Topder Fa. Microchip.
 Die Module bestehen aus 3 Phasenbrücken mit jeweils 2 SiC MOSFETs und 2 SiC Dioden pro Halbbrücke, welche
 
-MotorPrüfstand DHBW Engineering --> Messaufbau zeigen
+
+\subsection{Elektrische Maschine}
+
+
+
+\subsection{Antriebsprüfstand}
+Der Antriebsprüfstand des DHBWE aus zwei elektrischen Maschinen, welche mechanisch über eine Drehmomentmesswelle verbunden sind.
+Auf der einen Seite der Welle befindet sich der Testmotor, auf der anderen eine ebenfalls Permanenterregte Lastmaschine vom Typ AMK DD7 \unsure{hier genaue Bezeichnung einfügen u. Datenblatt verlinken}.
+Der Testmotor wird durch den eigenentwickelten Wechselrichter PrePulse \unsure{wie als eigennamen Markieren?} angesteuert, während die Lastmaschine über einen Wechselrichter der Fa. AMK vom Typ KW60\unsure{Datenblatt!} angesteuert wird. \\
+Im Betrieb zur Vermessung von Prüflingsmotor und -inverter wird die Lastmaschine Drezahlgeregelt angesteuert und der Prüflingsmotor Momentengeregelt.
+D.h., dass zunächst eine Solldrehzahl an den Lastinverter geschickt wird, welcher solange ein positives Drehmoment am Motor stellt, bis die Solldrehzahl erreicht ist.\\
+Anschließend wird ein Sollmoment an den Prüflingsinverter geschickt, welcher dafür sorgt, dass der zur Erzeugung Drehmoments nötige Strom im Motor fließt.
 
 AUF PTP Synchronisation eingehen!
 
@@ -43,10 +57,26 @@ AC Leistungsberechnung: ist in den Messdaten eine Phasenverschiebung zwischen St
 
 
 
-Leistungsanalysatoren
-%https://cdn.tmi.yokogawa.com/11/3823/details/Motor_Seminar_MTG.pdf
+\subsubsection{CSM Messmodule}
+Messung über Shunt und HW-Filter mit Grenzfrequenz 250 kHz
 
 
+3x CSM HV BM 1.2 zur AC Messung
+1x CSM HV BM 1.1 zur DC Messung
+2x CSM XCP Gateways zur Kommunikation zum MessPC
+1x AD-Scan MiniModul zur Drehmomentbestimmung
+1x CNT4 evo zur Drehzahlbestimmung
+1x VP6450 als Schnittstelle zwischen den Gateways/CNT4/AD-Scan und dem PrüfstandsPC
+%https://docs.google.com/document/d/%1Xq_vhz7K0Xn5hN8SluS7x-uVCBVajVXi1cco3dHOIgA/edit?tab=t.0
+
+
+
+\begin{figure}
+    \center
+    \includegraphics[scale = 0.2]{media/drawio/B2B_Pruefstand.drawio.png}
+    \caption{Back-to-Back Prüfstand mit Messystem}
+    \label{fig: B2B}
+\end{figure}
 
 
 

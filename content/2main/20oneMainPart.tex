@@ -9,35 +9,82 @@ Einführung im \autoref{Spezifikation Kurztitel}\ldots
 Die verschiedenen Kennlinien Werden mit den ergebnisssen eines im Jahr 2023 durchgeführen Doppelpulstests \ac{DPT} verglichen.
 
 \cite{DPT_Luca}
-
+Test 2
 
 
 \section{Erwartete Verluste}
 
-\begin{Itemize}
-  \item Formulierung quantitativer Leistungskennzahlen
-  \newline
-  Definition quantitativer KPIs ist von Bedeutung, um die Leistungsfähigkeit der
-  verschiedenen Simulationssystem-Architekturen objektiv zu bewerten. Dieses Teilziel
-  beinhaltet die Identifizierung geeigneter KPIs und die Entwicklung von Metriken zur Messung
-  der Simulationskapazität
-  \item Aufbau des Testmodells
-  \newline
-  Die Entwicklung des konfigurierbaren  dsTestmodells bildet die Grundlage für die Durchführung von
-  Tests an verschiedenen Simulationssystem-Architekturen. Hierbei gilt es, die Plattform so zu gestalten,
-  dass sie flexibel an verschiedene Simulationsszenarien anpassbar ist
-  \item Entwicklung eines flexiblen Konfigurationssystems \improvement{This really needs to be improved! What was I thinking?!}
-  \newline
-  Die Implementierung eines flexiblen Konfigurationssystems ermöglicht die Anpassung des Testmodells an
-  unterschiedliche Simulationskapazitäten. Hierbei müssen Parameter definiert werden, die es dem Testmodell
-  ermöglichen, den Simulationsaufwand je nach Architektur anzupassen
-\end{Itemize}
+Anhand der im Datenblatt des Halbleitermoduls angegebenen Abhängigkeiten der Verlustleistung von verschiedenen Parametern, wie z.B. Schaltfrequenz, Laststrom und Spannung, können die erwarteten Verluste des Wechselrichters abgeschätzt werden. \\
+Die Sensitivtäten der Verlustleistung werden mit den Ergebnisssen des 2023 vom Verein durchgeführten Doppelpulstests validiert. \\
+Die Beispielrechnungen wurden mit einem Konstantstom durchgeführt.
 
-
-
+\subsubsection{Schaltverluste FET}
 \begin{equation}
   P_{sw,bridge} \approx 6 \cdot f_{sw} \cdot k_{SVPWM} \cdot \frac{1}{2\pi} \int_0^{2\pi} \left(E_{on}(|i(t)|) + E_{off}(|i(t)|)\right) \, d(\omega t)
 \end{equation}
+\subsubsection{Schaltverluste Diode}
+
+\subsubsection{Leitverluste FET}
+Die Leitverluste können über den Drain-Source Widerstand im geschlossenen Zustand abgeschätzt werden.
+\begin{equation}
+  P_{fet,leit} = R_{DS(on)} (T_J) \cdot I^2 \cdot 3 \\
+  = 16 m\Omega \cdot (100 A)^2 \cdot 3 = 480 W
+\end{equation}
+
+\subsubsection{Leitverluste Diode}
+An den Freilaufdioden des Inverters entstehen ebenfalls Leitverluste, wenn diese den Laststrom führen.
+Das kommt vor, wenn der geschlossene Schalter nicht nicht in der Richtung des Stromes liegt \unsure{diesen Fal mit reinnehmen?}, oder keiner der beiden FETs einer Halbbrücke geschlossen ist.
+Zum einen ist das der Fall, wenn der Inverter während der Fahrt den Zustand der aktiven Regelung verlässt und der gesamte Motorstrom auf die Freilaufdioden kommutiert, welche diesen gleichrichten und eine hohe Spannung am Zwischenkreis erzeugen. \\
+Der für die Verlustleistung im Betrieb relevante Fall ist jedoch die Totzeit innerhalb eines Schaltzyklus.
+Die FETs öffnen und schließen nicht instantan, sondern benötigen $t_{d(on)} + t_{rise}$ zum schließen und $t_{d(off)} + t_{fall}$ zum öffnen. \\
+Um einen Kurzschluss zwischen HV+ und HV-, den sog. Shoothrough, zu vermeiden während beide FETs einer Halbbrücke geschlossen sind, werden daher Totzeiten in der Ansteuerung eingeführt. \\
+Die Schaltverzögerung und damit die benötigte Totzeit ist im wesentlichen davon abhänig, wie schnell die Gatekapazität des FETs geladen bzw. entladen werden kann. \\
+Im Datenblatt des SiC Moduls sind die Verzögerungen für
+VGS = –5 V/20 V \unsure{Datenblatt Gate Treiber}
+VBus = 600 V
+ID = 100 A
+RGon = 4 Ω
+RGoff = 2.4 Ω
+
+gegeben.
+
+Daraus ergibt sich
+\begin{equation}
+  t_{tot} > ((t_{d(off)} + t_{fall}) - t_{d(on)}) \\
+  = (50 ns + 25 ns) - (30 ns) = 45 ns
+\end{equation}
+
+Da während der Tests mit $\text{R}_{\text{Gon}} = 40 \Omega$ und $\text{R}_{\text{Goff}} = 24 \Omega$ gefahren wurde, ergeben sich längere Totzeiten für sowohl ein- als auch ausschalten. \\
+Da der Effekt nicht genau abgeschätzt werden konnte, wurde eine hohe Sicherheitsreserve gewählt und die Totzeit auf 500 ns eingestellt, wie in Abbildung \ref{fig: Totzeit Einfluss} zu sehen ist. \\
+\begin{figure}
+  \center
+  \includegraphics[scale = 0.8]{media/PWMdeadtime.png}
+  \caption{Gemessene Totzeit zwischen den Steuersignalen von High- und Lowside Triebern }
+  \label{fig: Totzeit Einfluss}
+\end{figure}
+\unsure{Englische Beschriftung?}
+
+
+Bei einer Schaltfrequenz von 32 kHz, bzw. einer Periodendauer von 31.25 µs, entspricht die Totzeit von 500 ns einem Anteil von ca. $1.6 \%$ der Periodendauer.
+
+Die Verlustleistung der Freilaufdioden während der Totzeit kann näherungsweise mit den Werten des Datenblattes für die Vorwärtsspannung bei $100 $A und \ac{T_J} der Diode berechnet werden.
+Die Verluste treten pro Schaltperiode an nur in eine Richtung, aber an allen 3 Halbbrücken auf, daher ergibt sich für die Gesamtverlustleistung z.B. :
+\begin{equation}
+  P_{diode,leit} = U_{F} (I_{AV}) \cdot I_{AV} \cdot f_{schalt}  \cdot t_{tot} \cdot 3\\
+  = 3.4 V \cdot 100 A \cdot 0.016 \cdot 3 = 16,32 W
+\end{equation}
+
+
+
+
+\subsection{Sperrverluste}
+Aufgrund des Hohen Sperrwiderstands sind die Sperrverluste bei SiC Bauelementen zu vernachlässigen, jedoch fließen an anderen Stellen der Schaltung Leckstöme, welche die Leistungsaufnahme erhöhen.
+Der Sperrwiderstand des Invertermoduls wid im wesentlichen durch den Spannungsteiler zur Spannungsmessung bestimmt, welcher einen Widerstand von $R_{ges} = 660 k\Omega$ pro Modul hat.
+Bei einer Zwischenkreisspannung von $U_{DC} = 600 V$ ergibt sich somit eine Verlustleistung von ca. 0,5 mW pro Modul.
+
+
+
+
 
 
 

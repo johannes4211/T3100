@@ -16,18 +16,55 @@ Test 2
 
 Anhand der im Datenblatt des Halbleitermoduls angegebenen Abhängigkeiten der Verlustleistung von verschiedenen Parametern, wie z.B. Schaltfrequenz, Laststrom und Spannung, können die erwarteten Verluste des Wechselrichters abgeschätzt werden. \\
 Die Sensitivtäten der Verlustleistung werden mit den Ergebnisssen des 2023 vom Verein durchgeführten Doppelpulstests validiert. \\
-Die Beispielrechnungen wurden mit einem Konstantstom durchgeführt.
+Die Beispielrechnungen wurden für die grundlegenden Mechanismen mit einem Konstantstom durchgeführt.
 
 \subsubsection{Schaltverluste FET}
+Ein wesentlicher Teil der Verlustleistung eines Wechselrichters entsteht durch die Schaltverluste der Halbleiterschalter.
+Während die Gatekapazität des FETs umgeladen wird, durchläuft der Schalter einen Bereich, in dem sowohl Spannung als auch Strom hoch sind, was zu einer hohen Verlustleistung führt, wie in \autoref{fig: SwLosses} beispielhaft für den Ausschaltvorgang dargestellt ist. \\
+Die Energie pro Schaltvorgang entspricht dabei der Fläche unter der Leistungskurve in Abbildung \ref{fig: SwLosses} und ist im wesentlichen Abhängig von $U_{DS}$, $I_D$, $t_r$ und $t_f$. \\
+Da $t_r$ und $t_f$ im wesentlichen durch die Gatewiderstände und die Gatekapzität bestimmt werden, ist im Datenblatt des Moduls bereits die Schaltenergie in Abhängigkeit der Gatevorwiderstände angegeben. \\
+Die Gatevorwiderstände werden zum einen durch die diskreten, bestückten Widerstände zwischen Treiber und Gate bestimmt, zum anderen aber auch durch die Innenwiderstände des Treiberbausteins und des Gates selbst.
+Diese liegen für den UCC21750 bei $R_{\mathrm{OH\_EFF}} = 0.7 \,\omega$ und $R_{\mathrm{OL}} = 0.3 \, \Omega$ und werden im Folgenden vernachlässigt.
+
+Mit den Standardwerten von $R_{gon}  = 4 \, \Omega$ und $R_{goff}  = 2.4 \, \Omega$ gilt:
+\begin{equation}
+  P_{FET, Schlat} = (E_{on} + E_{off}) \cdot f_{s}= (2 \,mJ 1,3 \,mJ) \cdot 32 kHz = 105,6 \, W
+\end{equation}
+
+
+\begin{figure}
+  \center
+  \includegraphics[scale = 0.1]{media/drawio/Schaltverluste.drawio.png}
+  \caption{Entstehung der Schaltverluste beim Öffnen eines Halbleiterschalters }
+  \label{fig: SwLosses}
+\end{figure}
+
+
+
 \begin{equation}
   P_{sw,bridge} \approx 6 \cdot f_{sw} \cdot k_{SVPWM} \cdot \frac{1}{2\pi} \int_0^{2\pi} \left(E_{on}(|i(t)|) + E_{off}(|i(t)|)\right) \, d(\omega t)
 \end{equation}
+
+
 \subsubsection{Schaltverluste Diode}
+Die Schaltverluste einer Diode werden durch die zum sperren benötigte \ac{Q_{rr}} sowie die \ac{T_{rr}} bestimmt, welche die Zeit angibt, die die Diode benötigt um nach dem Abschalten den Stromfluss zu unterbrechen. \\
+Während dieser Zeit fließt bei hoher Spannung kurzzeitig ein Rückwärtsstrom \ac{I_{rr}} in die Diode, welcher die Verlustleistung erhöht. \\
+Durch den Einsatz der SiC Tenchnologie tragen die Schaltverluste der Diode nur noch in geringem Maße zur Gesamtverlustleistung bei. \\
+Aufgrund der höherern Sperrspannung der SiC Dioden kann die Freilaufdiode als Schottkydiode ausgeführt werden und benötigt deshalbe keine relevante Sperrverzugsladung \ac{Q_{rr}}. \\
+Die Body-Diode des des FETs ist eine intrinsische Eigenschaft des Bauelements und kann nicht als Schottkydiode ausgeführt werden, weshalb hier Schaltverluste auftreten. \\
+Mit den Werten aus dem Datenblatt ergibt sich:
+\begin{equation}
+  P_{Diode, sw}
+  \approx U_{DC} \cdot Q_{rr} \cdot f_{sw} \cdot 3 \\
+  = 600 V \cdot 1100 n C \cdot 32 kHz \cdot 3 = 63.36 W
+\end{equation}
+
+
 
 \subsubsection{Leitverluste FET}
-Die Leitverluste können über den Drain-Source Widerstand im geschlossenen Zustand abgeschätzt werden.
+Die Leitverluste können über den Drain-Source Widerstand im geschlossenen Zustand abgeschätzt werden und sind im wesentlichen abhängig von Tastgrad, Spersschichttemperatur \ac{T_J} und Strom.
 \begin{equation}
-  P_{fet,leit} = R_{DS(on)} (T_J) \cdot I^2 \cdot 3 \\
+  P_{fet,leit} = D \cdot R_{DS(on)} (T_J) \cdot I^2 \cdot 3 \\
   = 16 m\Omega \cdot (100 A)^2 \cdot 3 = 480 W
 \end{equation}
 
@@ -54,6 +91,7 @@ Daraus ergibt sich
   = (50 ns + 25 ns) - (30 ns) = 45 ns
 \end{equation}
 
+
 Da während der Tests mit $\text{R}_{\text{Gon}} = 40 \Omega$ und $\text{R}_{\text{Goff}} = 24 \Omega$ gefahren wurde, ergeben sich längere Totzeiten für sowohl ein- als auch ausschalten. \\
 Da der Effekt nicht genau abgeschätzt werden konnte, wurde eine hohe Sicherheitsreserve gewählt und die Totzeit auf 500 ns eingestellt, wie in Abbildung \ref{fig: Totzeit Einfluss} zu sehen ist. \\
 \begin{figure}
@@ -76,15 +114,89 @@ Die Verluste treten pro Schaltperiode an nur in eine Richtung, aber an allen 3 H
 
 
 
-
 \subsection{Sperrverluste}
 Aufgrund des Hohen Sperrwiderstands sind die Sperrverluste bei SiC Bauelementen zu vernachlässigen, jedoch fließen an anderen Stellen der Schaltung Leckstöme, welche die Leistungsaufnahme erhöhen.
 Der Sperrwiderstand des Invertermoduls wid im wesentlichen durch den Spannungsteiler zur Spannungsmessung bestimmt, welcher einen Widerstand von $R_{ges} = 660 k\Omega$ pro Modul hat.
 Bei einer Zwischenkreisspannung von $U_{DC} = 600 V$ ergibt sich somit eine Verlustleistung von ca. 0,5 mW pro Modul.
 
 
+\subsection{weitere Verlustarten}
+Ansteuerverluste,
 
 
+
+
+
+
+
+
+
+\section{Erweiterung der Verlustrechnung für den Betriebszustand}
+
+\subsection{Extrapolation der elektrischen Spezifikation}
+Da sich für viele Betriebszustände zentrale Kenngrößen nicht direkt aus dem Datenblatt ablesen lassen, müssen die Kennlinien des Datenblattes extrapoliert werden, um diese Zustände abbilden zu können.
+
+Die Abbildung 18 des Datenblattes zeigt einen linearen Zusammenhang zwischen Gatevorwiderstand und Schaltenergie. \\
+Durch Ablesen ergeben sich bei $100 \, A $:
+\begin{gather}
+  E_{on}(R_{gon}) = \dfrac{0.25 mJ}{2 \, \Omega} \cdot R_{gon} + 1.8625 \,mJ \\
+  E_{off}(R_{goff}) = \dfrac{1 \, mJ}{1.6 \, \Omega} \cdot R_{goff} + 1.25\, mJ
+\end{gather}
+
+Die Schaltenergien sind in Abbildung 9 außerdem in Abhängigkeit des Stromes angegeben.
+Um die instantane Verlustleistung über eine Sinusoeriode zu errechnen wird diese
+Kurve Interpoliert und mit dem verhältnis aus den Schaltenergien bei realen und angegebenen Gatewiderständen skaliert.
+\begin{gather}
+  E_{on}(I_D, R_{gon}) = E_{on}(I_D) \cdot \dfrac{\frac{0.25 mJ}{2 \, \Omega} \cdot R_{gon} + 1.8625 \,mJ}{\frac{0.25 mJ}{2 \, \Omega} \cdot 4 \, \Omega + 1.8625 \,mJ} \\
+  E_{off}(I_D, R_{goff}) = E_{off}(I_D) \cdot \dfrac{\frac{1 \, mJ}{1.6 \, \Omega} \cdot R_{goff} + 1.25\, mJ}{\frac{1 \, mJ}{1.6 \, \Omega} \cdot 2.4 \, \Omega + 1.25\, mJ}
+\end{gather}
+
+
+Die stark verienfachte, instantane Gesamtverlustleistung ergibt sich zu
+\begin{equation}
+  \begin{split}
+    P_{verlust}(I_{ph},f_{sw},R_{gon},R_{goff},t_{tot}) =    \\
+    3 \cdot P_{leit,FET}(I_{ph},f_{sw})                      \\
+    + 3 \cdot P_{Schalt,FET}(R_{gon},R_{goff},{I_ph},f_{sw}) \\
+    + 3 \cdot P_{leit, Diode}(I_{ph},f_{sw}, t_{tot})
+  \end{split}
+\end{equation}
+\unsure{Schaltverluste der Diode mit reinnehmen? (RR)}
+
+Die Verlustleistung über eine Sinusperiode ist entsprechend:
+\begin{equation}
+  \int_{0}^{2 \pi}P_{verlust}(I_{max}\cdot sin(\varphi),f_{sw},R_{gon},R_{goff},t_{tot}) \, d\varphi
+\end{equation}
+
+\subsection{Schaltvorgänge pro Schaltzyklus}
+Während einer Schaltperiode von 31,25 us wird pro Halbbrücke einer der FETs geschlossen und wieder geöffnet.
+Die Gesamtschaltenergie Pro Modul beträgt also
+$E_{ges} = 3 \cdot (E_{on} + E_{off})$. \\
+
+Die Anzahl der Schaltvorgänge pro Schaltzyklus und damit auch pro Sinusperiode kann durch geeignete Modulationsverfahren reduziert werden.
+Bei dem PrePulse Wechselrichter kommt mit der \ac{SVPWM}jedoch kein auf Reduzierung der Schaltverluste optimiertes Modulationsverfahren zum Einsatz.
+
+%\begin{comment}
+%\begin{figure}[h]
+%  \centering
+%  \begin{minipage}{0.58\textwidth}
+%    \centering
+%   \includegraphics[width=\textwidth]{media/drawio/SVPWM.drawio.png}
+%    \label{fig:first}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.38\textwidth}
+%    \centering
+%    \includegraphics[width=\textwidth]{media/5_vsi_space_vectors.png}
+%    \label{fig:second}
+%  \end{minipage}
+%  \caption{Schema der Rauziegermodulation. Rechte Grafik nach \cite{https://%y-cyc-esc.com/motor-control-basics/2024/08/03/%space-vector-modulation-explained.html}}
+%  \label{fig:both}
+%\end{figure}
+%\end{comment}
+
+
+\subsection{Verluste über eine Sinusperiode}
 
 
 

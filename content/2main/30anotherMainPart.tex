@@ -3,12 +3,45 @@ In der ersten Messreihe soll die Abhängigkeit der Verlustleistung von Schaltfre
 Dazu wird am Motorprüfstand eine konstante, für den Betrieb im Fahrzeug relevante Drehzahl von $6000 U \cdot min^{-1}$ eingeregelt und ein moment von $10 \, Nm$ gestellt, was einem Phasenstrom von ca. $67 \, A$ entspricht.
 Die Messung wurde mit reduzierter Schaltfrequenz, sowie mit gleicher Schaltfreuenz aber niederigeren Gatewiderständen erhöht, um die Sensitivität der Gesamtverluste auf beide Parameter bestimmen zu können.
 
-Hauptteil\ldots
 
 \section{Hauptteil}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale = 0.9]{media/gemesseneLeistung.png}
+    \caption{Gemessene und berechnete Leistung bei $10\,Nm$ und $6000 U \cdot min^{-1}$}
+    \label{fig: meas pow}
+\end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale = 0.7]{media/power sensitivities.png}
+    \caption{gemessene Leistung in Abhängigkeit von $R_g$ Schaltfrequenz}
+    \label{fig: powersens}
+\end{figure}
+
+Abbildung \ref{fig: powersens} Zeigt die gemessenen elektrischen und mechanischen Ein- und Ausgangsleistungen.
+Es ist zu erkennen, dass der Gesamtwirkungsgrad $\eta = \dfrac{P_{mach}}{P_{DC}}$ bei allen Versuchen im Bereich von ca. $80 \%$ liegt. \\
+Trotz gleicher Momentenvorgabe unterscheiden sich die mechanischen Leistungen leicht.
+Unterschiede in der $P_{DC}$ sind ebenfalls festzustellen.
+Besonders groß ist jedoch der Unterschied in $P_{AC}$. Die Drehstromleistung unterscheidet sich stark zwischen den einzelnen Versuchen.
+Da der Motor alleine laut Angaben des Herstellers einen Wirkungsgrad von ca. $80 \%$ im verwendeten Arbeitspunkt hat \cite{} \unsure{hier AMK Datenblatt},
+ist die gemessene Leistung nicht realistisch. \\
+
+Zu erwarten wäre, dass bei gleicher Momentenvorgabe der gleiche Strom im Motor eingeregelt wird und $P_{AC}$, sowie $P_{mech}$ in allen drei Fällen gleich bleiben. \\
+Aufgrund der abweichenden Verluste im Wechselrichter sollte sich dann eine Änderung in der eingangsseitigen $P_{DC}$ feststellen lassen.
+\\
+Da der gemessene Wirkungsgrad des Motors deutlich über dem Datenblattwert liegt, welcher ohne konstruktive Änderungen nicht verbessert werden kann, ist davon auszugehen, dass $P_{AC}$ nicht korrekt ermittelt werden kann. \\
+
+
+Geht man davon aus, dass sich der Wirkungsgrad des Motors nicht gravierend verändert, kann über den Gesamtwirkungsgrad dennoch eine Tendenz für die Änderung der Verluste im Wechselrichter in Abhängigkeit der Schaltfrequenz und der Gatewiderstände ermittelt werden.
+Die gesamtwirkungsgrade verhalten siche wie folgt:\\
+Versuch A: $78 \%$, Versuch B: $80,1 \%$ Versuch C: $80,9 \%$.
+Eine Verbesserung des Gesamtwirkungsgrades ist zwar grundsätlich plausibel, jedoch, sind die Abweichungen zu gering, um eine verlässliche Aussage treffen zu können.
+
+
+
+\begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
@@ -47,6 +80,12 @@ Hauptteil\ldots
 
 
 
+\section{Effizienzkennfeld Inverter}
+
+
+
+
+
 \section{Fehlerquellen der Messung}
 \subsection{Samplingrate / LPF / Harmonische}
 
@@ -61,3 +100,40 @@ Hauptteil\ldots
 
 
 \subsection{Zeitsynchronisation der Instantanen Leistungsmessung}
+Eine mögliche Ursache für die unplausible Messung der AC Leistung liegt in der mangelhaften Zeitsynchronisation von Strom- und Spannungsmessung. \\
+
+Zum einen verschiebt sich durch eine andere Phasenlage der Leistungsfaktor $\lambda = cos \phi$, womit sich die gemessene Wirkleistung verringert. \\
+Da bei einer PMSM mit Feldorientierter Regelung der Leistungsfaktor im Normalbetrieb nahe 0 ist, gibt $\lambda$ direkt den Fehler an.
+Bei $6000 U\cdot min^{-1}$ und einer Verschiebung von $100\,\mu s$:
+\begin{gather}
+    \omega_{el} = \dfrac{6000 \, U\cdot min^{-1}}{60} \cdot 5 \cdot 2\pi \approx 3142 \, rads^{-1}\\
+    \Delta P = P_0 - \lambda \cdot P_0 = P_0 \cdot (1 - \cos(3142 \, rads^{-1} \cdot 100 \, \mu s)) = P_0 \cdot 0,05
+\end{gather}
+
+
+Zum anderen entstehen durch das Schalten der FETs Spitzen auf den Phasenströmen und Spannungen, die bei ausreichender zeitlicher Auflösung mit in die Leistungsberechnung einfließen.
+Sind diese Spitzen nicht korrekt synchronisiert entsthehteben falls ein Fehler.
+Die anforderungen sind hierbei deutlich genauer, als bei der Phasenverschiebung der Grundwelle.
+Anhand der Schaltspitzen lässt sich auch die zeitliche Verschiebung abschätzen, solange diese kleiner als eine Schaltperiode ist. \\
+
+\subsection{Messung der Verzögerung}
+
+\subsection{Synchronisationsmethoden}
+Um Signale verschiedener Messgeräte zu synchronisieren bietet Vector verschiedene Soft- und Hardwarelösungen an, deren Funktion und Genauigkeit in \cite{timeSync} erläutert sind. \\
+
+Einzlne XCP Gateways versehen aufgenommene Daten mit einem von der Systemzeit und dem Startkommando abhängigen Zeitstempel. Dabei nutzt jedes Gerät seine eigene Uhr mit leicht abweichenden taktfrequenzen, wodurch gleiche Zeitstempel nicht mehr zwingend dem gleichen realen Abtastzeitpunkt entsprechen.\\
+
+Die Synchronisierung erfolgt entweder über ein gmeinsames Hardwaresignal, welches von einer externen Taktquelle bereitgestellt wird, oder über Software Protokolle. \\
+
+Abhängig von der verwendeten Version kann mit Softwaresynchronisation eine Genauigkeit von bis zu $431 \, ns$ zeitlicher Verschiebung erreicht werden.
+Damit können Fehler aufgrund einer Phasenverschiebung der Grundwelle ausgeschlossen werden.
+Weiterhin vorhanden sein können jedoch Fehler durch die verschiebung der Schaltspitzen. \\
+Abbildung \ref{fig: timeSync} zeigt die
+
+\begin{figure}
+    \center
+    \includegraphics[scale = 0.7]{media/timeSync.png}
+    \caption{Über XCP 1.3 Software Sync Synchronisierte Phasenströme am Motorprüfstand}
+    \label{fig: timeSync}
+\end{figure}
+

@@ -1,19 +1,5 @@
 \Chapter[Spezifikation Kurztitel]{Erwartete Verluste}
 
-Einführung im \autoref{Spezifikation Kurztitel}\ldots
-
-
-
-\section{Validierung des Datenblattes durch Doppelpulstest}
-
-Die verschiedenen Kennlinien Werden mit den ergebnisssen eines im Jahr 2023 durchgeführen Doppelpulstests \ac{DPT} verglichen.
-
-\cite{DPT_Luca}
-Test 2
-
-
-\section{Erwartete Verluste}
-
 Anhand der im Datenblatt des Halbleitermoduls angegebenen Abhängigkeiten der Verlustleistung von verschiedenen Parametern, wie z.B. Schaltfrequenz, Laststrom und Spannung, können die erwarteten Verluste des Wechselrichters abgeschätzt werden. \\
 Die Sensitivtäten der Verlustleistung werden mit den Ergebnisssen des 2023 vom Verein durchgeführten Doppelpulstests validiert. \\
 Die Beispielrechnungen wurden für die grundlegenden Mechanismen mit einem Konstantstom durchgeführt.
@@ -28,21 +14,21 @@ Diese liegen für den UCC21750 bei $R_{\mathrm{OH\_EFF}} = 0.7 \,\omega$ und $R_
 
 Mit den Standardwerten von $R_{gon}  = 4 \, \Omega$ und $R_{goff}  = 2.4 \, \Omega$ gilt:
 \begin{equation}
-  P_{FET, Schlat} = (E_{on} + E_{off}) \cdot f_{s}= (2 \,mJ 1,3 \,mJ) \cdot 32 kHz = 105,6 \, W
+    P_{FET, Schlat} = (E_{on} + E_{off}) \cdot f_{s}= (2 \,mJ 1,3 \,mJ) \cdot 32 kHz = 105,6 \, W
 \end{equation}
 
 
 \begin{figure}
-  \center
-  \includegraphics[scale = 0.1]{media/drawio/Schaltverluste.drawio.png}
-  \caption{Entstehung der Schaltverluste beim Öffnen eines Halbleiterschalters }
-  \label{fig: SwLosses}
+    \center
+    \includegraphics[scale = 0.1]{media/drawio/Schaltverluste.drawio.png}
+    \caption{Entstehung der Schaltverluste beim Öffnen eines Halbleiterschalters }
+    \label{fig: SwLosses}
 \end{figure}
 
 
 
 \begin{equation}
-  P_{sw,bridge} \approx 6 \cdot f_{sw} \cdot k_{SVPWM} \cdot \frac{1}{2\pi} \int_0^{2\pi} \left(E_{on}(|i(t)|) + E_{off}(|i(t)|)\right) \, d(\omega t)
+    P_{sw,bridge} \approx 6 \cdot f_{sw} \cdot k_{SVPWM} \cdot \frac{1}{2\pi} \int_0^{2\pi} \left(E_{on}(|i(t)|) + E_{off}(|i(t)|)\right) \, d(\omega t)
 \end{equation}
 
 
@@ -54,9 +40,9 @@ Aufgrund der höherern Sperrspannung der SiC Dioden kann die Freilaufdiode als S
 Die Body-Diode des des FETs ist eine intrinsische Eigenschaft des Bauelements und kann nicht als Schottkydiode ausgeführt werden, weshalb hier Schaltverluste auftreten. \\
 Mit den Werten aus dem Datenblatt ergibt sich:
 \begin{equation}
-  P_{Diode, sw}
-  \approx U_{DC} \cdot Q_{rr} \cdot f_{sw} \cdot 3 \\
-  = 600 V \cdot 1100 n C \cdot 32 kHz \cdot 3 = 63.36 W
+    P_{Diode, sw}
+    \approx U_{DC} \cdot Q_{rr} \cdot f_{sw} \cdot 3 \\
+    = 600 V \cdot 1100 n C \cdot 32 kHz \cdot 3 = 63.36 W
 \end{equation}
 
 
@@ -64,20 +50,20 @@ Mit den Werten aus dem Datenblatt ergibt sich:
 \subsubsection{Leitverluste FET}
 Die Leitverluste können über den Drain-Source Widerstand im geschlossenen Zustand abgeschätzt werden und sind im wesentlichen abhängig von Tastgrad, Spersschichttemperatur \ac{T_J} und Strom.
 \begin{equation}
-  P_{fet,leit} = D \cdot R_{DS(on)} (T_J) \cdot I^2 \cdot 3 \\
-  = 16 m\Omega \cdot (100 A)^2 \cdot 3 = 480 W
+    P_{fet,leit} = D \cdot R_{DS(on)} (T_J) \cdot I^2 \cdot 3 \\
+    = 16 m\Omega \cdot (100 A)^2 \cdot 3 = 480 W
 \end{equation}
 
 \subsubsection{Leitverluste Diode}
 An den Freilaufdioden des Inverters entstehen ebenfalls Leitverluste, wenn diese den Laststrom führen.
-Das kommt vor, wenn der geschlossene Schalter nicht nicht in der Richtung des Stromes liegt \unsure{diesen Fal mit reinnehmen?}, oder keiner der beiden FETs einer Halbbrücke geschlossen ist.
+Das kommt vor, wenn der geschlossene Schalter nicht nicht in der Richtung des Stromes liegt , oder keiner der beiden FETs einer Halbbrücke geschlossen ist.
 Zum einen ist das der Fall, wenn der Inverter während der Fahrt den Zustand der aktiven Regelung verlässt und der gesamte Motorstrom auf die Freilaufdioden kommutiert, welche diesen gleichrichten und eine hohe Spannung am Zwischenkreis erzeugen. \\
 Der für die Verlustleistung im Betrieb relevante Fall ist jedoch die Totzeit innerhalb eines Schaltzyklus.
 Die FETs öffnen und schließen nicht instantan, sondern benötigen $t_{d(on)} + t_{rise}$ zum schließen und $t_{d(off)} + t_{fall}$ zum öffnen. \\
 Um einen Kurzschluss zwischen HV+ und HV-, den sog. Shoothrough, zu vermeiden während beide FETs einer Halbbrücke geschlossen sind, werden daher Totzeiten in der Ansteuerung eingeführt. \\
 Die Schaltverzögerung und damit die benötigte Totzeit ist im wesentlichen davon abhänig, wie schnell die Gatekapazität des FETs geladen bzw. entladen werden kann. \\
 Im Datenblatt des SiC Moduls sind die Verzögerungen für
-VGS = –5 V/20 V \unsure{Datenblatt Gate Treiber}
+VGS = –5 V/20 V
 VBus = 600 V
 ID = 100 A
 RGon = 4 Ω
@@ -87,20 +73,20 @@ gegeben.
 
 Daraus ergibt sich
 \begin{equation}
-  t_{tot} > ((t_{d(off)} + t_{fall}) - t_{d(on)}) \\
-  = (50 ns + 25 ns) - (30 ns) = 45 ns
+    t_{tot} > ((t_{d(off)} + t_{fall}) - t_{d(on)}) \\
+    = (50 ns + 25 ns) - (30 ns) = 45 ns
 \end{equation}
 
 
 Da während der Tests mit $\text{R}_{\text{Gon}} = 40 \Omega$ und $\text{R}_{\text{Goff}} = 24 \Omega$ gefahren wurde, ergeben sich längere Totzeiten für sowohl ein- als auch ausschalten. \\
 Da der Effekt nicht genau abgeschätzt werden konnte, wurde eine hohe Sicherheitsreserve gewählt und die Totzeit auf 500 ns eingestellt, wie in Abbildung \ref{fig: Totzeit Einfluss} zu sehen ist. \\
 \begin{figure}
-  \center
-  \includegraphics[scale = 0.8]{media/PWMdeadtime.png}
-  \caption{Gemessene Totzeit zwischen den Steuersignalen von High- und Lowside Triebern }
-  \label{fig: Totzeit Einfluss}
+    \center
+    \includegraphics[scale = 0.8]{media/PWMdeadtime.png}
+    \caption{Gemessene Totzeit zwischen den Steuersignalen von High- und Lowside Triebern }
+    \label{fig: Totzeit Einfluss}
 \end{figure}
-\unsure{Englische Beschriftung?}
+
 
 
 Bei einer Schaltfrequenz von 32 kHz, bzw. einer Periodendauer von 31.25 µs, entspricht die Totzeit von 500 ns einem Anteil von ca. $1.6 \%$ der Periodendauer.
@@ -108,8 +94,8 @@ Bei einer Schaltfrequenz von 32 kHz, bzw. einer Periodendauer von 31.25 µs, ent
 Die Verlustleistung der Freilaufdioden während der Totzeit kann näherungsweise mit den Werten des Datenblattes für die Vorwärtsspannung bei $100 $A und \ac{T_J} der Diode berechnet werden.
 Die Verluste treten pro Schaltperiode an nur in eine Richtung, aber an allen 3 Halbbrücken auf, daher ergibt sich für die Gesamtverlustleistung z.B. :
 \begin{equation}
-  P_{diode,leit} = U_{F} (I_{AV}) \cdot I_{AV} \cdot f_{schalt}  \cdot t_{tot} \cdot 3\\
-  = 3.4 V \cdot 100 A \cdot 0.016 \cdot 3 = 16,32 W
+    P_{diode,leit} = U_{F} (I_{AV}) \cdot I_{AV} \cdot f_{schalt}  \cdot t_{tot} \cdot 3\\
+    = 3.4 V \cdot 100 A \cdot 0.016 \cdot 3 = 16,32 W
 \end{equation}
 
 
@@ -139,33 +125,33 @@ Da sich für viele Betriebszustände zentrale Kenngrößen nicht direkt aus dem 
 Die Abbildung 18 des Datenblattes zeigt einen linearen Zusammenhang zwischen Gatevorwiderstand und Schaltenergie. \\
 Durch Ablesen ergeben sich bei $100 \, A $:
 \begin{gather}
-  E_{on}(R_{gon}) = \dfrac{0.25 mJ}{2 \, \Omega} \cdot R_{gon} + 1.8625 \,mJ \\
-  E_{off}(R_{goff}) = \dfrac{1 \, mJ}{1.6 \, \Omega} \cdot R_{goff} + 1.25\, mJ
+    E_{on}(R_{gon}) = \dfrac{0.25 mJ}{2 \, \Omega} \cdot R_{gon} + 1.8625 \,mJ \\
+    E_{off}(R_{goff}) = \dfrac{1 \, mJ}{1.6 \, \Omega} \cdot R_{goff} + 1.25\, mJ
 \end{gather}
 
 Die Schaltenergien sind in Abbildung 9 außerdem in Abhängigkeit des Stromes angegeben.
 Um die instantane Verlustleistung über eine Sinusoeriode zu errechnen wird diese
 Kurve Interpoliert und mit dem verhältnis aus den Schaltenergien bei realen und angegebenen Gatewiderständen skaliert.
 \begin{gather}
-  E_{on}(I_D, R_{gon}) = E_{on}(I_D) \cdot \dfrac{\frac{0.25 mJ}{2 \, \Omega} \cdot R_{gon} + 1.8625 \,mJ}{\frac{0.25 mJ}{2 \, \Omega} \cdot 4 \, \Omega + 1.8625 \,mJ} \\
-  E_{off}(I_D, R_{goff}) = E_{off}(I_D) \cdot \dfrac{\frac{1 \, mJ}{1.6 \, \Omega} \cdot R_{goff} + 1.25\, mJ}{\frac{1 \, mJ}{1.6 \, \Omega} \cdot 2.4 \, \Omega + 1.25\, mJ}
+    E_{on}(I_D, R_{gon}) = E_{on}(I_D) \cdot \dfrac{\frac{0.25 mJ}{2 \, \Omega} \cdot R_{gon} + 1.8625 \,mJ}{\frac{0.25 mJ}{2 \, \Omega} \cdot 4 \, \Omega + 1.8625 \,mJ} \\
+    E_{off}(I_D, R_{goff}) = E_{off}(I_D) \cdot \dfrac{\frac{1 \, mJ}{1.6 \, \Omega} \cdot R_{goff} + 1.25\, mJ}{\frac{1 \, mJ}{1.6 \, \Omega} \cdot 2.4 \, \Omega + 1.25\, mJ}
 \end{gather}
 
 
 Die stark verienfachte, instantane Gesamtverlustleistung ergibt sich zu
 \begin{equation}
-  \begin{split}
-    P_{verlust}(I_{ph},f_{sw},R_{gon},R_{goff},t_{tot}) =    \\
-    3 \cdot P_{leit,FET}(I_{ph},f_{sw})                      \\
-    + 3 \cdot P_{Schalt,FET}(R_{gon},R_{goff},{I_ph},f_{sw}) \\
-    + 3 \cdot P_{leit, Diode}(I_{ph},f_{sw}, t_{tot})
-  \end{split}
+    \begin{split}
+        P_{verlust}(I_{ph},f_{sw},R_{gon},R_{goff},t_{tot}) =    \\
+        3 \cdot P_{leit,FET}(I_{ph},f_{sw})                      \\
+        + 3 \cdot P_{Schalt,FET}(R_{gon},R_{goff},{I_ph},f_{sw}) \\
+        + 3 \cdot P_{leit, Diode}(I_{ph},f_{sw}, t_{tot})
+    \end{split}
 \end{equation}
-\unsure{Schaltverluste der Diode mit reinnehmen? (RR)}
+
 
 Die Verlustleistung über eine Sinusperiode ist entsprechend:
 \begin{equation}
-  \int_{0}^{2 \pi}P_{verlust}(I_{max}\cdot sin(\varphi),f_{sw},R_{gon},R_{goff},t_{tot}) \, d\varphi
+    \int_{0}^{2 \pi}P_{verlust}(I_{max}\cdot sin(\varphi),f_{sw},R_{gon},R_{goff},t_{tot}) \, d\varphi
 \end{equation}
 
 \subsection{Schaltvorgänge pro Schaltzyklus}
@@ -177,8 +163,8 @@ Die Anzahl der Schaltvorgänge pro Schaltzyklus und damit auch pro Sinusperiode 
 Bei dem PrePulse Wechselrichter kommt mit der \ac{SVPWM}jedoch kein auf Reduzierung der Schaltverluste optimiertes Modulationsverfahren zum Einsatz.
 
 
-\subsection{Einfluss der Sperrschichttemperatur}
-\unsure{hier fehlt einiges}
+
+
 
 %\begin{comment}
 %\begin{figure}[h]
@@ -200,16 +186,4 @@ Bei dem PrePulse Wechselrichter kommt mit der \ac{SVPWM}jedoch kein auf Reduzier
 %\end{comment}
 
 
-\subsection{Verluste über eine Sinusperiode}
 
-
-
-
-
-Messung über Shunt und HW-Filter mit Grenzfrequenz 250 kHz.
-3x CSM HV BM 1.2 zur AC Messung
-1x CSM HV BM 1.1 zur DC Messung
-2x CSM XCP Gateways zur Kommunikation zum MessPC
-1x AD-Scan MiniModul zur Drehmomentbestimmung
-1x CNT4 evo zur Drehzahlbestimmung
-1x VP6450 als Schnittstelle zwischen den Gateways/CNT4/AD-Scan und dem PrüfstandsPC

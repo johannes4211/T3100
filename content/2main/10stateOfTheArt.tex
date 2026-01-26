@@ -1,10 +1,5 @@
 \Chapter{Stand der Technik}
 
-Einführung\ldots
-
-Dies ist die Einführung in das Kapitel Stand der Technik.
-Mit vielen interessanten Informationen !
-
 \section{Halbleitermodule}
 Die Leistungselektronik in modernen Antriebssträngen basiert auf Halbleitermodulen, die verschiedene Halbleitermaterialien und Topologien verwenden, um elektrische Energie effizient zu steuern und umzuwandeln.
 Zu den gängigen Halbleitermaterialien gehören Silizium (Si), Siliziumkarbid (SiC) und Galliumnitrid (GaN).
@@ -13,26 +8,10 @@ Moderne Halbleitermodule sind in verschiedenen Bauformen erhältlich, darunter d
 Die Wahl der Topologie, wie z.B. B6-Brücke, NPC (Neutral Point Clamped) oder T-Type, hängt von den spezifischen Anforderungen der Anwendung ab, einschließlich Effizienz, Leistungsdichte und Kosten.
 Fortschritte in der Halbleitertechnologie haben zu einer verbesserten Leistung und Zuverlässigkeit von Wechselrichtern geführt, was wiederum die Entwicklung von Elektrofahrzeugen und erneuerbaren Energiesystemen vorantreibt.
 
-IGBT, Si, SiC, GaN, V6
-
-Bauformen, Topologien
-
-
-Wichtige Kennzahlen eines Datenblattes --> eher bei technische Grundlagen
-Rds on, Eon, Eoff
-
-
-
-pq Methode zur Mssung der instantanmem Leistung in 3-Phasigen Systemen
-
 
 \section{Messysteme}
 Die Leistungsmessung zur Bestimmung des Wirkungsgrades für Industrielle Anwendungen mit höchster Genauigkeit erfolgt in der Regel mit sog. Leistungsanalysatoren.
 %https://cdn.tmi.yokogawa.com/11/3823/details/Motor_Seminar_MTG.pdf
-
-
-\cite{Spannungsmessung}
-\cite{Strommessung}
 
 
 
@@ -56,70 +35,30 @@ Die Module bestehen aus 3 Phasenbrücken mit jeweils 2 SiC MOSFETs und 2 SiC Dio
 \end{figure}
 
 
-\subsection{Elektrische Maschine}
-
-
-
 \subsection{Antriebsprüfstand}
 Der Antriebsprüfstand des DHBWE aus zwei elektrischen Maschinen, welche mechanisch über eine Drehmomentmesswelle verbunden sind.
-Auf der einen Seite der Welle befindet sich der Testmotor, auf der anderen eine ebenfalls Permanenterregte Lastmaschine vom Typ AMK DD7 \unsure{hier genaue Bezeichnung einfügen u. Datenblatt verlinken}.
-Der Testmotor wird durch den eigenentwickelten Wechselrichter PrePulse \unsure{wie als eigennamen Markieren?} angesteuert, während die Lastmaschine über einen Wechselrichter der Fa. AMK vom Typ KW60\unsure{Datenblatt!} angesteuert wird. \\
+Auf der einen Seite der Welle befindet sich der Testmotor, auf der anderen eine ebenfalls Permanenterregte Lastmaschine vom Typ AMK DD7.
+Der Testmotor wird durch den eigenentwickelten Wechselrichter PrePulse angesteuert, während die Lastmaschine über einen Wechselrichter der Fa. AMK vom Typ KW60 angesteuert wird. \\
 Im Betrieb zur Vermessung von Prüflingsmotor und -inverter wird die Lastmaschine Drezahlgeregelt angesteuert und der Prüflingsmotor Momentengeregelt.
 D.h., dass zunächst eine Solldrehzahl an den Lastinverter geschickt wird, welcher solange ein positives Drehmoment am Motor stellt, bis die Solldrehzahl erreicht ist.\\
 Anschließend wird ein Sollmoment an den Prüflingsinverter geschickt, welcher dafür sorgt, dass der zur Erzeugung Drehmoments nötige Strom im Motor fließt.
 
-AUF PTP Synchronisation eingehen!
-
-
-AC Leistungsberechnung: ist in den Messdaten eine Phasenverschiebung zwischen Strom und Spannung enthalten --> Leistungsfaktor anschauen \unsure{Synchronisierungsproblem mit PTP?}
-
-
-
 \subsubsection{CSM Messmodule}
+Die Messung von Strom und Spannung erfolg am Motorprüfstand des DHBW Engineering mittels HV-Breakout Modulen der Fa. Computer Systeme Messtechnik GmbH. \\
+Dabei werden zwei Module der Version 1.2 \cite{BM1.2} zur AC Strom und Spannungsmessung nach der \ac{3W3P} Methode verwendt
 Messung über Shunt und HW-Filter mit Grenzfrequenz 250 kHz
 
-
-3x CSM HV BM 1.2 zur AC Messung
-1x CSM HV BM 1.1 zur DC Messung
-2x CSM XCP Gateways zur Kommunikation zum MessPC
-1x AD-Scan MiniModul zur Drehmomentbestimmung
-1x CNT4 evo zur Drehzahlbestimmung
-1x VP6450 als Schnittstelle zwischen den Gateways/CNT4/AD-Scan und dem PrüfstandsPC
-%https://docs.google.com/document/d/%1Xq_vhz7K0Xn5hN8SluS7x-uVCBVajVXi1cco3dHOIgA/edit?tab=t.0
 
 
 
 \begin{figure}
     \center
-    \includegraphics[scale = 0.2]{media/drawio/B2B_Pruefstand.drawio.png}
+    \includegraphics[scale = 0.1]{media/drawio/B2B_Pruefstand.drawio.png}
     \caption{Back-to-Back Prüfstand mit Messystem}
     \label{fig: B2B}
 \end{figure}
 
 
 
-Kaloriemetrische Messung
-\begin{equation}
-    \Delta T_{Wasser} = \frac{\dot{Q}}{\dot{m} \cdot c_p}
-\end{equation}
-
-
-
-Rückrechnung mit Motorverlusten
-
-
-
-
-
-
-
-
-SVPWM --> in keinem der 6 Bereiche muss der Zeiger durch das positiv schalten von 6 Schaltern laufen
-
-
-
-\section{Messunsicherheit}
-
-\cite{Karkkainen2021}
 
 

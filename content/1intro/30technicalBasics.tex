@@ -1,47 +1,16 @@
 \Chapter{Technische Grundlagen}
-
-
-Formula Student Rules --> Warum ist Effizienz wichtig?
-
-
-n IEC 61800-9-2 definiert den Wirkungsgrad über die Verlustleistung und nicht über die Effizienz selbst im gegensatz zu motoren
-
-
-The frequency converter international efficiency classes are given in IEC 61800-9-2 [15] as a respect of
-reference loss class instead of efficiencies that are used for the electrical machines. The standard uses
-the term complete drive module (CDM) to describe all the electronic equipment that are used to control
-electrical machines \cite{}
-
-\section{Abschnitt}
-
-Die jeweils ersten Erwähnungen werden immer ausgeschrieben:
-\newline
-\ac{SiC} und \ac{IGBT}
-\newline
-Erneut:
-\newline
-\ac{SiC} und \ac{IGBT}
-\subsection{Unterkapitel}
-
-Unterkapitel\ldots
-
-
+IEC 61800-9-2 definiert den Wirkungsgrad über die Verlustleistung und nicht über die Effizienz selbst im gegensatz zu motoren
 
 \section{Wirkungsgrad elektrischer Antriebe}
 \begin{equation}
     \eta = \dfrac{P_{ein}}{P_{aus}} = \dfrac{P_{ein}-P_{aus}}{P_{ein}} = \dfrac{P_{aus}}{P_{aus}+P_{Verlust}}
 \end{equation}
 
-
-
-
 \section{Grundlagen der Leistungsmessung}
 
 \begin{equation}
     P = \dfrac{t_0}{t_0+T} \int_0^T u(t) \cdot i(t) dt
 \end{equation}
-(Yokogawa Motor Seminar)
-
 
 \begin{equation}
     P_{m} = \dfrac{2 \cdot \pi \cdot n}{60} \cdot M
@@ -49,12 +18,7 @@ Unterkapitel\ldots
 
 
 
-\subsection{}{Leistungsmessung in 3-Phasigen Systemen}
-\textbf{1-Wattmeter Methode}
-
-\textbf{3-Wattmeter Methode}
-
-Wichtigster Vorteil: verlässlicher Leistungsfaktor auch bei unsymmetrischer Belastung und Oberschwingungen.
+\subsection{3-Wattmeter Methode}
 
 \begin{gather}
     P_{ges} = u_R \cdot i_R + u_S \cdot i_S + u_T \cdot i_T\\
@@ -66,22 +30,22 @@ Wichtigster Vorteil: verlässlicher Leistungsfaktor auch bei unsymmetrischer Bel
     i_R \cdot (u_R - u_T) + i_S \cdot (u_S - u_T)
 \end{gather}
 
-Stern-Dreieck-Transformation notwendig, um die Spannung der einzelnen Phasen zum Sternpunkt zu erhalten. sda
+Die Stern-Dreieck-Transformation ist notwendig, um die Spannung der einzelnen Phasen zum Sternpunkt zu erhalten.
 
-
+\begin{figure}
+    \centering
+    \includegraphics{media/3P3W.png}
+    \caption{3- Wa}
+\end{figure}
 
 \textbf{Aronschaltung}
 
-2- und 3-Wattmeter-Methoden
-(Aronschaltung)
---> Was wird bei CSM Modulen genutzt? Anscheinend umstelltbar?!
---> bei uns 3 Wattmeter Methode mit stern dreieck transformation
 
 
 
 
-\section{Messfehler}
- (ZES Zimmer)
+
+%\section{Messfehler}
 
 % In die Präambel:
 % \usepackage{array}  % für >{\raggedright\arraybackslash}
@@ -146,38 +110,17 @@ Stern-Dreieck-Transformation notwendig, um die Spannung der einzelnen Phasen zum
 
 
 
-
-\begin{quote}
-    In the frequency converter measurements, the methods used are the input–output method
-    and the calorimetric method. These are the only two practical methods for frequency
-    converter loss and efficiency determination with tests, and they are consequently defined
-    as standard test methods in the standard IEC 61800-9-2
-\end{quote} \cite{Karkkainen2021}[p. 53]
+\subsection{Kaloriemetrische Messung}
+Die Kaloriemetrische Messung sollte in einer abgeschlossenen Kammer stattfinden und könnte für den Wecselrichter des DHBWE z.B. über messung des Temepraturanstieges des Kühlwassers erfolgen, wird aber aufgrund der hohen ungenauigkeit im folgenden nicht berücksichtigt.
+\begin{equation}
+    \Delta T_{Wasser} = \frac{\dot{Q}}{\dot{m} \cdot c_p}
+\end{equation}
 
 
 
 
-Eine klare und physikalisch nachvollziehbare Herleitung dieser Leistungsgrößen unter generalisierten Annahmen lieferte erstmals 1983 ein japanisches Professorenteam um Prof. Hirofumi Akagi, die unter dem Titel „Theory of Instantaneous Real Power and Imaginary Power” oder auch kurz „p-q Theorie“ veröffentlicht wurde.
 
 
 
-Maximum
 
 
-\section{Weiterer Abschnitt}
-
-Beispielhafter Import einer Grafik \change{Das hier ändern}
-\begin{figure}[H]
-    \centering
-
-    \includegraphics[width=1\textwidth]{media/RED.jpg}
-
-    \captionsetup{width=0.8\textwidth}
-    \caption[Kurze Bildbeschreibung]{Ein Bild mit Quellenangabe \cite[S.~9]{Siemens}}
-
-    \label{platzhalterx}
-\end{figure}
-
-
-
-\subsection{Strommessung}

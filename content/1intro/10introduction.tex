@@ -1,7 +1,37 @@
 \Chapter{Einleitung}
 
-Inhalt\ldots Quellbeispiel: \cite[S.~2]{Plenk2019}.
+\section{Effizienz in der Elektromobilität}
 
-Beispiel Internetquelle: \cite{Siemens2023}.
+Die Effizienz des elektrischen Antriebsstrangs ist ein zentrales Kriterium für die Auslegung und Bewertung moderner Elektrofahrzeuge. Sie beeinflusst unmittelbar die erreichbare Reichweite, den Energieverbrauch sowie die thermische Belastung der einzelnen Komponenten. Da die im Fahrzeug verfügbare Energiemenge durch die Kapazität des Hochvoltspeichers begrenzt ist, kommt der Minimierung von Verlusten entlang des gesamten Antriebsstrangs eine besondere Bedeutung zu.\\
 
-Weiteres Quellbeispiel: \cite[S.~30ff.]{Siemens}.
+Eine Schlüsselrolle nimmt dabei die Leistungselektronik ein, insbesondere der Traktionswechselrichter. Dieser stellt die Schnittstelle zwischen Gleichspannungsquelle und elektrischer Maschine dar und ist für die Umwandlung der elektrischen Energie in eine für den Motor geeignete Form verantwortlich. Aufgrund der hohen Leistungsdichte und der hohen Schaltfrequenzen entstehen im Wechselrichter sowohl Leitungs- als auch Schaltverluste in den eingesetzten Halbleiterbauelementen. Diese Verluste tragen wesentlich zur Gesamtverlustleistung des Antriebsstrangs bei und beeinflussen somit dessen Gesamtwirkungsgrad.\\
+
+Neben der Reduktion des Energieverbrauchs wirkt sich eine hohe Effizienz des Wechselrichters auch positiv auf das thermische Verhalten aus. Geringere Verluste führen zu einer reduzierten Abwärme, was den Kühlaufwand senkt und eine kompaktere sowie leichtere Auslegung der Leistungselektronik ermöglicht. Dies ist insbesondere im Fahrzeugkontext von Bedeutung, da Bauraum und Gewicht maßgebliche Einflussgrößen für die Gesamtfahrzeugperformance darstellen.\\
+
+Vor diesem Hintergrund ist eine detaillierte Analyse und Bewertung der Verlustmechanismen im Traktionswechselrichter essenziell, um den Energieverbrauch des elektrischen Antriebsstrangs realistisch abschätzen und Optimierungspotenziale identifizieren zu können.
+
+
+
+\section{Effizienz in der Formula Student}
+Die Formula Student ist ein internationaler Konstruktionswettbewerb, bei dem studentische Teams verschiedener Hochschulen mit selbstgebauten Rennfahrzeugen gegeneinander antreten und in verschiedenen Disziplinen um die beste Gesamtwertung konkurrieren.\\
+Dabei ist die Effizienz des Elektrischen Antriebes ebenfalls ein wichtiger Faktor für die Gesamtbewertung des Fahrzeugs \cite{FSrulebook2026}. Zum einen fließt die verbrauchte Energie während des sog. Endurance Events direkt in die Bewertung ein:
+Das Team erhält Punkte basierend auf einem Effizienzfaktor, der sich aus der benötigten Zeit $T$ und der verbrauchten Energie $E$ während des Events berechnet. Der Effizienzfaktor wird als
+\begin{equation}
+    EF = T^2 \cdot E
+\end{equation}
+definiert.\\
+Punkte werden dann in Abhängigkeit des Effizienzfaktors und des niedrigsten beim Event erreichten Effizienzfaktors vergeben. \cite{FSrulebook2026}\\
+\\
+Auf der anderen Seite hat die Effizienz des Antriebes auch Einfluss auf die Kühlung der Leistungselektronik und der Elektromotoren. Eine höhere Effizienz bedeutet geringere Verluste und somit eine geringere Abwärme, die abgeführt werden muss. Dies ermöglicht leichtere Kühlsysteme, was wiederum das Gesamtgewicht des Fahrzeugs reduziert und somit die Performance verbessert.
+
+Des Weiteren wird der Hochvolt Akkumulator seitens des DHBW Engineering so ausgelegt, dass er die benötigte Energie für das Endurance Event bereitstellen kann. Ein effizienterer Antrieb benötigt weniger Energie, was die Anforderungen an den Akku reduziert und somit Gewicht und Volumen spart.
+
+Das die Effizienz einen messbaren Einfluss auf die Leistung bei den Events der Formula Student hatte konnte man in der Saison 2025 deutlich sehen.
+Abgesehen von sekundären Effekten wie geringerem Gewicht o.ä. führte der Effizienzfaktor in der Saison 2025 dazu, dass das Team der DHBW trotz der zweitschnellsten Zeit in der Endurance Diziplin bei der die Ausdauer des Fahrzeugs getestet wird, nur fünfter Stelle in der Punkteverteilung für diese Disziplin stand.
+Die Ergebnisse sind in Abbildung \ref{fig: FSG2025} dargestellt.
+\begin{figure}
+    \centering
+    \includegraphics[scale = 0.5]{media/FSG25.png}
+    \caption{Punkteverteilung bei der Endurance Disziplin auf FSG 2025 ohne den Einfluss von Zeitstrafen}
+    \label{fig: FSG2025}
+\end{figure}

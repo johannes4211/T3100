@@ -1,31 +1,12 @@
 \Chapter{Aufgabenstellung}
 \label{ch:Aufgabenstellung}
 
-\Equation{Boolesche Ungleichung \ref{ch:Aufgabenstellung}}{Boolesche Ungleichung}{
-  \begin{equation}
-    P(\bigcup_{n=1}^n A_n) \leq \sum_{n=1}^n P(A_n)
-  \end{equation}
-}
+Ziel dieser Arbeit ist die Bestimmung der Verlustleistung eines Traktionswechselrichters durch Modellierung und experimentelle Messung.
+Zunächst soll für einen einzelnen, definierten Arbeitspunkt ein konsistentes Ergebnis zwischen mathematischer Modellierung und Messung am Antriebsprüfstand erzielt werden. Aufbauend darauf ist die Übertragbarkeit des Ansatzes auf weitere Arbeitspunkte zu untersuchen, um schließlich ein vollständiges Kennfeld des Wechselrichters zu erstellen. Dieses Kennfeld soll es ermöglichen, anhand von Fahrdaten auf den zusätzlichen Energieverbrauch durch Verluste im Inverter zu schließen.
 
-Wenn die Ereignisse $A_n$ disjunkt sind, dann wird die Ungleichung
-in \autoref{Boolesche Ungleichung} zu einer Gleichheit. \unsure{Ist das richtig?}
-\begin{equation}\label{pythTheorem}
-  a^2+b^2=c^2
-\end{equation}
-Unabhängig davon definiert \autoref{pythTheorem} die Länge der Seiten eines rechtwinkligen Dreiecks, wobei $c$ die Hypotenuse darstellt. \unsure{Und das auch?}
+Die Modellierung der Verlustmechanismen erfolgt ausschließlich auf Basis der im Datenblatt des Halbleiterherstellers angegebenen Kennwerte und Charakteristiken. Eine Erweiterung durch zusätzliche empirische Parameter ist nicht vorgesehen.
 
+Die experimentelle Bestimmung der Verluste erfolgt am B2B-Antriebsprüfstand unter Verwendung des vorhandenen Messsystems. Auf den Einsatz eines dedizierten Power Analyzers wird bewusst verzichtet. Stattdessen werden ein- und ausgangsseitige Ströme und Spannungen erfasst und zur Leistungsbestimmung herangezogen.
 
-
-\section{Effizienz in der Formula Student}
-In der Formula Student ist die Effizienz des Elektrischen Antriebes ein wichtiger Faktor für die Gesamtbewertung des Fahrzeugs \cite{FSrulebook2026}. Zum einen fließt die verbrauchte Energie während des sog. Endurance Events direkt in die Bewertung ein:
-Das Team erhält Punkte basierend auf einem Effizienzfaktor, der sich aus der benötigten Zeit $T$ und der verbrauchten Energie $E$ während des Events berechnet. Der Effizienzfaktor wird als
-\begin{equation}
-  EF = T^2 \cdot E
-\end{equation}
-definiert.\\
-Punkte werden dann in Abhängigkeit des Effizienzfaktors und des niedrigsten beim Event erreichten Effizienzfaktors vergeben. \cite{FSrulebook2026}\\
-\\
-Auf der anderen Seite hat die Effizienz des Antriebes auch Einfluss auf die Kühlung der Leistungselektronik und der Elektromotoren. Eine höhere Effizienz bedeutet geringere Verluste und somit eine geringere Abwärme, die abgeführt werden muss. Dies ermöglicht leichtere Kühlsysteme, was wiederum das Gesamtgewicht des Fahrzeugs reduziert und somit die Performance verbessert.
-
-Des Weiteren wird der Hochvolt Akkumulator seitens des DHBW Engineering so ausgelegt, dass er die benötigte Energie für das Endurance Event bereitstellen kann. Ein effizienterer Antrieb benötigt weniger Energie, was die Anforderungen an den Akku reduziert und somit Gewicht und Volumen spart.
+Die Aufgabenstellung umfasst zudem die Bewertung der erzielbaren Genauigkeit sowie die Identifikation von Grenzen der Modellierung und Messmethodik.
 

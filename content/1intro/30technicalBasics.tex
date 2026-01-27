@@ -1,12 +1,56 @@
 \Chapter{Technische Grundlagen}
-IEC 61800-9-2 definiert den Wirkungsgrad über die Verlustleistung und nicht über die Effizienz selbst im gegensatz zu motoren
+\section{Wechselrichter im elektrischen Antriebsstrang}
+Der Antriebsstrang moderner Elektrofahrzeuge besteht in der Regel aus einem Hochvoltakkumulator als Energiespeicher, einem, oder mehreren Wechselstrommotoren, sowie einem oder mehreren Wechselrichtern zur Ansteuerung der Motoren. \\
+Der Wechselrichter sorgt dafür, dass der Gleichstrom aus der Batterie in dreiphasigen Wechselstrom für die Motoren umgewandelt wird und besteht aus Halbleiterschaltern, welche mittels \ac{PWM} angesteuert werden. \\
+Da Phasenstrom und Spannung im Motor über die Motor- und Drehzahlkonstante direkt mit Drehmoment und Drehzahl verknüpft sind, wird durch die Rückführung der Messung von Phasenströmen und Spannungen und einer Drehmoment- oder Drehzahlvorgabe an den Inverter der Tastgrad $D$ der einzelnen Schalter bestimmt. \\
+Die im Wechselrichter enstehenden Verluste werden im Wesentlichen durch die Eigenschaften der Schalter im leitenden, sperrenden und schaltenden Zustand bestimmt.
 
 \section{Wirkungsgrad elektrischer Antriebe}
+Der Wirkungsgrad elektrischer Antriebe ist definiert als das Verhältnis aus Eingangs und Ausgangsleistung.
+Im betrachteten System ist die Eingangsleistung die von der Batterie kommende, elektrische Gleichstromleistung und die Ausgangsleistung die Mechansiche Leistung des Motors.
 \begin{equation}
     \eta = \dfrac{P_{ein}}{P_{aus}} = \dfrac{P_{ein}-P_{aus}}{P_{ein}} = \dfrac{P_{aus}}{P_{aus}+P_{Verlust}}
 \end{equation}
 
-\section{Grundlagen der Leistungsmessung}
+Im Allgemeinen liegt der Wirkungsgrad elektrischer Antriebe deutlich über dem eines Fahrzeuges mit Verbrennungsmotor, da die Elektrische direkt in Mechanische Energie umgewandelt werden kann.\\
+Die ermittlung des Wirkungsgrades kann entweder durch Messung von Eingnags- und ausgangsleistung, oder durch Messung von Eingangs- oder Ausgangsleistung, sowie der entstandenen Verlus
+
+
+\begin{table}[h]
+    \centering
+    \label{tab:verluste_antriebsstrang}
+    \begin{tabular}{p{3cm} p{3cm} p{8.5cm}}
+        \hline
+        \textbf{Komponente}         & \textbf{Verlustart} & \textbf{Beschreibung / Abhängigkeiten}                      \\
+        \hline                                                                                                          \\
+        Wechselrichter              &
+        Leitverluste der Halbleiter &
+        Durchlassverluste in Transistoren und Freilaufdioden; abhängig vom Phasenstrom und der Temperatur               \\
+        \\
+        Wechselrichter              &
+        Schaltverluste              &
+        Verluste beim Ein- und Ausschalten der Halbleiter; abhängig von Zwischenkreisspannung, Strom und Schaltfrequenz \\
+        \\
+        Wechselrichter              &
+        Nebenverluste               &
+        Verluste in Gate-Treibern, Hilfsversorgungen und Steuerung                                                      \\
+        \\
+        Elektromotor                &
+        Kupferverluste              &
+        Ohmsche Verluste in den Wicklungen; abhängig vom Statorstrom                                                    \\
+        \\
+        Elektromotor                &
+        Eisenverluste               &
+        Hysterese- und Wirbelstromverluste; abhängig von Drehzahl und Magnetfluss                                       \\
+        \\
+        \hline
+    \end{tabular}
+    \caption{Übersicht über Verlustmechanismen im elektrischen Antriebsstrang}
+\end{table}
+
+
+
+\subsection{Grundlagen der Leistungsmessung}
 
 \begin{equation}
     P = \dfrac{t_0}{t_0+T} \int_0^T u(t) \cdot i(t) dt
@@ -19,6 +63,14 @@ IEC 61800-9-2 definiert den Wirkungsgrad über die Verlustleistung und nicht üb
 
 
 \subsection{3-Wattmeter Methode}
+\unsure{add text}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale = 0.4]{media/drawio/3P3W.drawio.png}
+    \caption{Aufbau der 3-Wattmeter Messung}
+    \label{fig: WP3W}
+\end{figure}
 
 \begin{gather}
     P_{ges} = u_R \cdot i_R + u_S \cdot i_S + u_T \cdot i_T\\
@@ -32,13 +84,8 @@ IEC 61800-9-2 definiert den Wirkungsgrad über die Verlustleistung und nicht üb
 
 Die Stern-Dreieck-Transformation ist notwendig, um die Spannung der einzelnen Phasen zum Sternpunkt zu erhalten.
 
-\begin{figure}
-    \centering
-    \includegraphics{media/3P3W.png}
-    \caption{3- Wa}
-\end{figure}
 
-\textbf{Aronschaltung}
+
 
 
 

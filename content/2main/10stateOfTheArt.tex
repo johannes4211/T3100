@@ -9,14 +9,37 @@ Die Wahl der Topologie, wie z.B. B6-Brücke, NPC (Neutral Point Clamped) oder T-
 Fortschritte in der Halbleitertechnologie haben zu einer verbesserten Leistung und Zuverlässigkeit von Wechselrichtern geführt, was wiederum die Entwicklung von Elektrofahrzeugen und erneuerbaren Energiesystemen vorantreibt.
 
 
-\section{Messysteme}
-Die Leistungsmessung zur Bestimmung des Wirkungsgrades für Industrielle Anwendungen mit höchster Genauigkeit erfolgt in der Regel mit sog. Leistungsanalysatoren.
+
+\section{Effizienz von elektrischen Antriebssträngen}
+Die Energieeffizienz für drehzahlveränderbare elektrische Antriebe ist in Teil 9-2 der DIN EN IEC 61800 definiert. \cite{effNorm} \\
+Für die Bewertung der Effizienzklasse eines Frequenzumrichters werden dabei die in Abbildung \ref{fig: ops} dargestellten Arbeitspunkte berücksichtigt und mit einem Referenzumrichter der gleichen Leistungsklasse verglichen.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale = 0.15]{media/drawio/DINmap.drawio.png}
+  \caption{berücksichtigte Arbeitspunkte für die Bewertung der Effizienz nach \cite{effNorm}}
+  \label{fig: ops}
+\end{figure}
+
+\unsure{still stuff to add}
+
+
+\section{Messsysteme}
+Die Leistungsmessung zur Bestimmung des Wirkungsgrades für Industrielle Anwendungen mit höchster Genauigkeit erfolgt in der Regel mit sog. Leistungsanalysatoren. \\
+Diese Messen Strom und Spannung auf einem oder mehreren Kanälen und berechnen daraus verschieden Leistungsgrößen wie Wirkleistung, Scheinleistung und Leistungsfaktor.
+Außerdem erlauben viele moderne Leistungsanalysatoren, die direkte Berechnung von Phasenspannungen und Leistungen aus den Phasenströmen und Außenleiterspannungen.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale = 2]{media/WT1800R_table_th_150px.png}
+  \caption{Ein für Messung der Verlustleitung eines Elektrischen Antriebsstrangs übliches Messgerät vom Typ PX 8000  der Fa. Yokogawa }
+\end{figure}
 %https://cdn.tmi.yokogawa.com/11/3823/details/Motor_Seminar_MTG.pdf
 
 
 
 \section{Antriebsstrang DHBW Engineering}
-Der Antriebsstrang des eSleek26 besteht aus vier Radnabenmaschinen, die jeweils von einem eigenen Wechselrichter angesteuert werden.
+Der Antriebsstrang des eSleek26 besteht aus vier Radnabenmaschinen, die jeweils von einm eigenen Wechselrichter angesteuert werden.
 Die vier Wechselrichter sind zentral im Fahrzeug verbaut und werden durch einen 600 V Hochvolt Akkumulator gespeist.
 
 \subsection{Traktionswechselrichter PrePulse}
@@ -28,10 +51,10 @@ Die Module bestehen aus 3 Phasenbrücken mit jeweils 2 SiC MOSFETs und 2 SiC Dio
 
 
 \begin{figure}
-    \center
-    \includegraphics[scale = 0.07]{media/B6_upscaled.png}
-    \caption{B6 Modul des Wechselrichters nach \cite{Microchip}}
-    \label{fig: Wechselrichter Aufbau}
+  \center
+  \includegraphics[scale = 0.07]{media/B6_upscaled.png}
+  \caption{B6 Modul des Wechselrichters nach \cite{Microchip}}
+  \label{fig: Wechselrichter Aufbau}
 \end{figure}
 
 
@@ -45,17 +68,17 @@ Anschließend wird ein Sollmoment an den Prüflingsinverter geschickt, welcher d
 
 \subsubsection{CSM Messmodule}
 Die Messung von Strom und Spannung erfolg am Motorprüfstand des DHBW Engineering mittels HV-Breakout Modulen der Fa. Computer Systeme Messtechnik GmbH. \\
-Dabei werden zwei Module der Version 1.2 \cite{BM1.2} zur AC Strom und Spannungsmessung nach der \ac{3W3P} Methode verwendt
+Dabei werden zwei Module der Version 1.2 \cite{BM1.2} zur AC Strom und Spannungsmessung nach der \ac{3P3W} Methode verwendt
 Messung über Shunt und HW-Filter mit Grenzfrequenz 250 kHz
 
 
 
 
 \begin{figure}
-    \center
-    \includegraphics[scale = 0.1]{media/drawio/B2B_Pruefstand.drawio.png}
-    \caption{Back-to-Back Prüfstand mit Messystem}
-    \label{fig: B2B}
+  \center
+  \includegraphics[scale = 0.1]{media/drawio/B2B_Pruefstand.drawio.png}
+  \caption{Back-to-Back Prüfstand mit Messystem}
+  \label{fig: B2B}
 \end{figure}
 
 
